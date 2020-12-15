@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>setInterval</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      let xPos = 10;
+      let timerId;
+
+      function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.arc(xPos, 150, 10, 0, Math.PI*2, false);
+        context.fill();
+        xPos += 10;
+        // xPos = xPos + 3;
+      }
+
+      // 1에서 그대로 가져온경우 ->
+      // timerId = requestAnimationFrame(draw); 얘를 지우고 다시
+      // 0.5초 => 500 
+      // frame유실 이런게 장점인 requestAnimationFrame의 경우가 없기때문에 
+      // cf 모바일에서도 단점을 보인다 
+      timerId = setInterval(draw, 500);
+
+      // interval를 사용할경우 clearInterval을 사용하면된다 
+      canvas.addEventListener('click', () => {
+        clearInterval(timerId);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

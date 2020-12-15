@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>requestAnimationFrame</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+
+    <script>
+      // css animation의 경우는 keyframe설정으로 가능하지만 
+      // js의경우는 하나씩 설정해야한다 (위치찍고 지우고 다시 위치찍고 )
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      let xPos = 10;
+      // 아래에서 변수 선언을 위해 설정하기 
+      let timerId;
+
+      // 반복적으로해야하니깐 function으로 지정하기
+      function draw() {
+        //얘가있어야지 지우고 그리고가 반복된다 
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        // 얘를 안넣을경우 path가 마무리되어니깐 한붓그리기된다 조심하자 
+        context.beginPath();
+        // 360도 함수 만들어버리기 
+        context.arc(xPos, 150, 10, 0, Math.PI*2, false);
+        context.fill();
+        xPos += 3;
+        // xPos = xPos + 3;
+
+
+        // 이렇게 할경우 공이 캔버스 끝지점에서 멈추게된다 
+        // if (xPos >= canvas.width-10) {
+        //   return;
+        // }
+
+        // requestAnimationFrame에 대한 설명
+        // 수행하기 원하는 애니메이션을 알리고 
+        // 다음 리페인트가 진행되기전까지 해당하는 업데이트하는 함수를 호출한다
+        // 끊기는 현상을 줄여준다 (한번그려줄때 그려주기 최적화상태일때 그려준다)
+        // 첫번쨰인자로 그려줄 인자를 넣어준다 
+        // 자기안에서 자기를 호출하게 되어서 계속 draw가 반복하게된다 
+
+        // 얘자체를 취소시키게하는 방법
+        timerId = requestAnimationFrame(draw);
+
+        // timerId를 이용해서 cancelAnimationFrame이라는 이용해서 캔슬해도된다 
+        // if (xPos >= canvas.width-10) {
+        //   cancelAnimationFrame(timerId);
+        // }
+      }
+
+      draw();
+
+      // 캔버스를 클릭했을때 멈추게 하는경우 
+      canvas.addEventListener('click', () => {
+        cancelAnimationFrame(timerId);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

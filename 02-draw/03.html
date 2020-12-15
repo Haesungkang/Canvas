@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      //javascript는 함수이름 한글이름으로 해도 무방
+      function 라디안(각도) {
+        return 각도 * Math.PI / 180;
+      }
+      // beginPath
+      // arc
+      // closePath
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      context.beginPath();
+
+      // arc라는 것은 호를 그리는 method인데 여기서 360도를 돌리면 원을 그린다
+      // 중심점 좌표를 찍고, 반지름크기, 시작각도 끝각도를 만들어야한다
+      // 360도를 쓰면안되고 라디안으로 써야하니깐 주의하자 (360도 는 2파이 )
+      // 생각해보면 이것을 계속 자주써야하니깐 function으로 정의한다 
+      // 마지막의경우 시계방향으로 갈지 반시계로 갈지 결정해주는것 
+      context.arc(300, 200, 50, 0, 라디안(360), false);
+      // true일경우에는 반시계방향으로 진행한다 
+      context.fill();
+      // context.stroke();
+
+      // beginPath를 안하면 한붓그리기가 되기때문에 꼭 넣어주자
+      context.beginPath();
+      context.arc(500, 100, 20, 0, 라디안(360), false);
+      context.stroke();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

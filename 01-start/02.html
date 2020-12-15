@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+      }
+      .canvas {
+        width: 500px;
+        height: 300px;
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>캔버스 사이즈 설정</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+    <canvas class="canvas canvas2" width="1000" height="600"></canvas>
+
+    <script>
+      // canvase 공의 크기가 1번이 더 크게 나온다
+      const canvas = document.querySelector('.canvas');
+      const canvas2 = document.querySelector('.canvas2');
+      const context = canvas.getContext('2d');
+      const context2 = canvas2.getContext('2d');
+      //  x 100 y 100 radius 50인 원을 그린다
+      // 캔버스 크기 자체가 다르기 때문에 좌표가 다르게 찍혀서 나온것이다
+      // 후자가 고해상도에서 더 자주 쓰인다
+      // canvas사이즈를 크게한다음에 나중에 css로 작게 만든다
+      // javascript를 윈도우 사이즈에서 2배로 설정후에 그다음에 css에서 브라우저 사이즈로 만든다 
+      context.arc(100, 100, 50, 0, Math.PI*2, false);
+      context2.arc(100, 100, 50, 0, Math.PI*2, false);
+      context.fill();
+      context2.fill();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+     
+    <canvas class="canvas" width="600" height="400">
+      이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+      <!-- 색깔은 항상 칠해두고 사직하자 -->
+
+    <script>
+      // fillRect
+      // clearRect
+      // strokeRect
+
+      // canvas라는 class='canvas'를 가져오는것 
+      // canvas에서 context를 가져와서 작업을 진행한다
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      // 이 위두라인은 자동적으로 써야한다 
+      console.log(context);
+      // 여기서 나오는 것들을 이용해서 조작한다고 생각하면된다
+
+      // 그릴위치를 선정 좌표 x,y width,height
+      // 위에처럼 색깔을 넣을수도 있고 코드를 넣을수 있다
+      // context.fillStyle = 'rgba(0,0,0,0,5)';
+      // context.fillStyle = '#ff0000';
+
+      context.fillRect(50, 50, 100, 100);
+      context.fillStyle = 'red';
+      // 그린다고 생각해야한다. 처음에는 검은색으로 설정,,, fillstyle로 빨간색이 칠해진다
+      context.fillRect(0, 0, 100, 100);
+
+      // 지우기 clearRect 8080위치에서 50만큼 지운다
+      context.clearRect(80, 80, 50, 50);
+      // 선을 긋는 리액터
+      context.strokeRect(150, 150, 100, 100);
+
+      // 여기서 context객체를 이용해서 사용한다는 개념을 가지고 가자
+      // canvas는 이미지를 가져올때 많이 쓴다
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

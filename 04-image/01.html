@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Image</h1>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      // image객체를 이용하는 방법 2가지 
+      // const imgElem = document.createElement('img');
+      const imgElem = new Image();
+      // 이미지 경로를 불러오는방법 
+      imgElem.src = '../images/ilbuni1.png';
+      // 외부데이터를 가져오는것이기 때문에 이미지가 로드되는것까지 기다렸다가 loading을 한다
+      // 로딩이 될경우 실행할것들을 형성한다 
+      imgElem.addEventListener('load', () => {
+        // 그릴 이미지를 넣고, 위치를 잡아준다
+        context.drawImage(imgElem, 50, 50);
+        // 위치를 잡아주고나서 원하는 사이즈로 그릴수 있다 
+        context.drawImage(imgElem, 50, 50, 70, 120);
+        // 원래 소스에서 원하는 위치에서 끝위치를 설정하고 
+        // 그다음에 캔버스에서 원하는 위치를 설정하는 경우 
+        context.drawImage(imgElem, 100, 100, 200, 200, 0, 0, 100, 100);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
