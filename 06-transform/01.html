@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Transform</h1>
+    <canvas class="canvas" width="500" height="500"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      // 처음에는 검은색물감으로 100,100위치에다가 그림을 그리고
+      context.fillRect(100, 100, 200, 200);
+      // fillstyle을 오렌지색으로 찍은다음에
+      context.fillStyle = 'orange';
+      // 오렌지색정사각형을 그린다 
+      context.fillRect(150, 150, 200, 200);
+
+      // save함수
+      context.save();
+
+      context.fillStyle = 'blue';
+      context.beginPath();
+      context.arc(300, 300, 50, 0, Math.PI*2, false);
+      context.fill();
+      // 원래는 파란색으로 찍어놓았고 그런다음에
+      //  restore를 이용할경우 
+      context.restore();
+
+      // 파란색이아니라 오렌지색으로 된다
+      // save이전의 상태를 모두 저장해두고 파란색으로 임시로바꾸고 다시 복원시키는경우
+      // save, restore는 여러단계로 중첩이 가능하다 MDN문서참고
+      // 검은색 저장 파란색저장 흰색칠하고 restore 파란색 restore 검은색으로된다
+      context.beginPath();
+      context.arc(300, 300, 20, 0, Math.PI*2, false);
+      context.fill();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
