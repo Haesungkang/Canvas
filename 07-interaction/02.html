@@ -25,12 +25,14 @@
       const mousePos = {x: 0, y: 0};
       let panel;
       let selectedBox; // 클릭된 box
-      // window의 innerwidth 관련해서 설정
+      // window의 innerwidth 관련해서 설정 -> 이건 전체창
       // let oX = window.innerWidth * 0.5
       // let oY = window.innerHeight * 0.5
       let oX;
       let oY;
+      // 2.. step을 지정해서 설정한다 
       let step; // 애플리케이션의 상태(단계)를 저장 1 ~ 4
+      // 11.. render를 끝내기위한 변수 설정 
       let rafId;
 
       context.font = 'bold 30px sans-serif';
@@ -41,6 +43,8 @@
         let box;
         for (let i = 0; i < boxes.length; i++) {
           box = boxes[i];
+          // 5.. 이부분을 날려버리고 case1에서만 넣어준다 
+
           // box.x += box.speed;
           // if (box.x > canvas.width) {
           //   box.x = -box.width;
@@ -49,6 +53,7 @@
         }
 
         switch (step) {
+          // 6.. 이부분에서 case1에서 처리하고 case2로 간다 
           case 1:
             for (let i = 0; i < boxes.length; i++) {
               box = boxes[i];
@@ -58,34 +63,44 @@
               }
             }
             break;
-
+          // 7.. page로딩을 위한 case를 만들어준다
           case 2:
             // panel.scale += 0.05;
+            // 9.. 원래위에서같이하는건데 밑에서처럼 식을 세우고 진행한다
             // 현재크기 = 현재크기 + (목표크기 - 현재크기)*0.1
             // 감속
             panel.scale = panel.scale + (1 - panel.scale)*0.1;
             // 가속
             // panel.scale = panel.scale + panel.scale*0.02;
+
+            // 11.. panel에서 만든각도를 이용해서 angle을 지정해준다
             // 각도 = 스케일(0~1) * 720;
             panel.angle = panel.scale * 720;
+            // 10.. 위에같은식의 경우는 비율을 이용해서 적용시킨 case
             panel.draw();
+            // console.log(panel.scale을 해보면 0.9999999이정도까지 진행되고 1이절대안되므로 여기서 바꾼다)
             if (panel.scale >= 0.999) {
+              // 정확하게 스케일을 만들기위한 작업중 하나
               panel.scale = 1;
               panel.angle = 720;
               step = 3;
             }
             break;
-
+          // panel 그리기
           case 3:
             panel.draw();
+            // panel.showcontent가 실행이안된다 
             break;
         }
-
+        // 렌더가 계속 실행되기때문에 여기서 cancel을 해주는 것이 좋다 
         // console.log('render!');
 
+        // requestAnimationFrame은 window전역변수라서 method 
+        // window.requestAnimationFrame인데 생략가능
         rafId = requestAnimationFrame(render);
         if (step === 3) {
           panel.showContent();
+          // 여기서 rafId는 101이고 위에서 case3는 101상태인느낌
           cancelAnimationFrame(rafId);
         }
       }
@@ -94,7 +109,9 @@
 
       // 초기화한다는것을 의미하기위해 init함수 정의하고 나중에 밑에서다가 선언시키기 
       function init() {
+        // 3.. case를 나눠서 설정한다 
         step = 1;
+        // 1.. 캔버스의 사이즈의 반으로 출력
         oX = canvas.width / 2;
         oY = canvas.height / 2;
         for (let i = 0; i < 10; i++) {
@@ -124,14 +141,19 @@
             selectedBox = box;
           }
         }
-
+        // 8.. 1이면서도 selectedBox일때만 step2로가고 나머지는 다시 되돌아가는방법으로한다
         if (step === 1 && selectedBox) {
           // console.log(selectedBox.index);
+          // 4.. click했을때 바로 노란애로 바로 나와야 때문에 
           step = 2;
+        // 8.. 멈춰있는 상태
         } else if (step === 3) {
           step = 1;
+          // case1에서 해도되는데 반복적으로 되니깐 그냥여기서 해버려야하니깐
           panel.scale = 0.01;
+          // 바뀌었을때 바로
           selectedBox = null;
+          // 12.. 다시 렌더를 실행해야한다 (안하면 그대로 멈춰버린다)
           render();
         }
       });
