@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Interaction</h1>
+    <canvas class="canvas" width="600" height="400"></canvas>
+    
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      context.fillRect(200, 200, 100, 100);
+
+      function clickHandler(이벤트) {
+        // 직접 마우스를 찍어봐서 확인해보면된다
+        // console.log(이벤트)
+        
+        // 마우스에서 찍은 위치를 알려준다
+        // 얘는 전체에서 좌표를 찍어내는것 
+        // console.log(이벤트.clientX, 이벤트.clientY);
+        // 얘는 해당 캔버스의 좌표가 찍히고
+        // console.log(이벤트.layerX, 이벤트.layerY);
+        const x = 이벤트.layerX;
+        const y = 이벤트.layerY;
+
+        if (x > 200 &&
+            x < 200 + 100 &&
+            y > 200 &&
+            y < 200 + 100) {
+          console.log('x ok');
+        }
+      }
+
+      canvas.addEventListener('click', clickHandler);
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
